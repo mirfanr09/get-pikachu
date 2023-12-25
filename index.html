@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Get Pikachu</title>
+  </head>
+  <style>
+    body {
+      background-color: #ffde00;
+      font-family: "Arial", sans-serif;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    #pokemonContainer {
+      background-color: #f4d03f;
+      width: 300px;
+      margin: 50px auto;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+    }
+
+    #pokemonContainer img {
+      display: block;
+      margin: 0 auto;
+      width: 200px;
+      height: auto;
+    }
+
+    #pokemonContainer h3 {
+      margin: 10px 0;
+    }
+
+    #pokemonContainer p {
+      font-size: 16px;
+      color: #333;
+    }
+
+    button {
+      background-color: #000;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #f39c12;
+    }
+  </style>
+  <body>
+    <center><h1>GET PIKACHU</h1></center>
+    <br />
+    <center>
+      <button id="loadButton" onclick="fetchData()">GET!!!</button>
+      <div id="pokemonContainer"></div>
+    </center>
+
+    <script>
+      function fetchData() {
+        const xhttp = new XMLHttpRequest();
+        const url = "https://pokeapi.co/api/v2/pokemon/pikachu";
+        const httpMethod = "GET";
+        xhttp.onload = function () {
+          const response = JSON.parse(this.responseText);
+          const imageUrl = response.sprites.front_default;
+          const name = response.name;
+          const id = response.id;
+          const type = response.types[0].type.name;
+          let data = `<p>${id}: ${name}</p><img src="${imageUrl}" class="pikachu"><p>Type: ${type}</p>`;
+          document.getElementById("pokemonContainer").innerHTML = data;
+        };
+        xhttp.open(httpMethod, url);
+        xhttp.send();
+      }
+    </script>
+  </body>
+</html>
